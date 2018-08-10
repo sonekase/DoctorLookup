@@ -13,13 +13,14 @@ $(document).ready(function(){
     promise.then(function(response) {
         let body = JSON.parse(response);
           console.log(body);
-        body.data.forEach(function(data){
-          let doctor = data.profile.first_name + " " + data.profile.last_name;
-          console.log(doctor);
-          $("#resultsArea").append("<li>" + doctor + "</li>");
-        })
+      body.data.forEach(function(doctor) {
+        $("#resultsArea").append(`<li>${doctor.profile.first_name} ${doctor.profile.last_name} <br>
+        ${doctor.practices[0].visit_address.street}, ${doctor.practices[0].visit_address.city}, ${doctor.practices[0].visit_address.state} ${doctor.practices[0].visit_address.zip} <br>
+        Phone number: ${doctor.practices[0].phones[0].number} <br>
+        Accept new patient: ${doctor.practices[0].accepts_new_patients} </li> <br>`)
+      });
 
-        }, function(error) {
+      }, function(error) {
         $('.showErrors').text(`There was an error processing your request: ${error.message}`);
       });
 
