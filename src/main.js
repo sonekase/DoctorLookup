@@ -7,12 +7,18 @@ import { DoctorLookup } from "./DoctorLookup.js";
 $(document).ready(function(){
   $("#doctorForm").submit(function(event) {
     event.preventDefault();
+    $("#resultsArea").text("");
+    $("#errorField").text("");
     let doctorName = $("#doctorSearch").val();
+    let symptom = $("symptomSearch").val();
     let foundDoctor = new DoctorLookup();
-    let promise = foundDoctor.getDoctorByName(doctorName);
+
+    let promise = foundDoctor.lookupDoctor(doctorName, symptom);
     promise.then(function(response) {
-        let body = JSON.parse(response);
-          console.log(body);
+      let body = JSON.parse(response);
+      if (body.data.length ===0) {
+        $("#errorField").text("No doctor match search criterias.");
+      }
       body.data.forEach(function(doctor) {
         $("#resultsArea").append(`<li>${doctor.profile.first_name} ${doctor.profile.last_name} <br>
         ${doctor.practices[0].visit_address.street}, ${doctor.practices[0].visit_address.city}, ${doctor.practices[0].visit_address.state} ${doctor.practices[0].visit_address.zip} <br>
