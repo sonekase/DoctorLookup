@@ -12,6 +12,7 @@ $(document).ready(function(){
     let promise = foundDoctor.getDoctorByName(doctorName);
     promise.then(function(response) {
         let body = JSON.parse(response);
+          console.log(body);
         body.data.forEach(function(data){
           let doctor = data.profile.first_name + " " + data.profile.last_name;
           console.log(doctor);
