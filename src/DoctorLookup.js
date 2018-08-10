@@ -3,8 +3,7 @@ export class DoctorLookup {
     return new Promise(function(resolve, reject) {
       let request = new XMLHttpRequest();
       console.log(name);
-      let symptom = "sore throat";
-      let url = `https://api.betterdoctor.com/2016-03-01/doctors?name=${name}&query=${symptom}&location=wa-seattle&skip=0&limit=10&user_key=bfc8bedd9abed33fcee231ec56644a37`;
+      let url = `https://api.betterdoctor.com/2016-03-01/doctors?name=${name}&query=${symptom}&location=wa-seattle&skip=0&limit=10&user_key=${process.env.exports.apiKey}`;
       request.onload = function() {
         if (this.status === 200) {
           console.log(request.response);

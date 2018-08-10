@@ -10,7 +10,7 @@ $(document).ready(function(){
     $("#resultsArea").text("");
     $("#errorField").text("");
     let doctorName = $("#doctorSearch").val();
-    let symptom = $("symptomSearch").val();
+    let symptom = $("#symptomSearch").val();
     let foundDoctor = new DoctorLookup();
 
     let promise = foundDoctor.lookupDoctor(doctorName, symptom);
